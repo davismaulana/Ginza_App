@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "792000125087",
+    "project_id": "ginza-app-40894",
+    "storage_bucket": "ginza-app-40894.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792000125087:android:444bdfe7a99d628b83eaaa",
+        "android_client_info": {
+          "package_name": "com.nagamasa.ginza_coffee_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792000125087-8rl2e096oscje0vv4ipatqbici10c6c9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0kqdz3iann3mJWm6mXKHZpqbAj-PDWB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792000125087-8rl2e096oscje0vv4ipatqbici10c6c9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
