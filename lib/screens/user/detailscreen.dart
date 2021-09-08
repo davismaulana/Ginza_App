@@ -7,32 +7,39 @@ import 'package:ginza_coffee_app/screens/cashier/widgets/order.dart';
 import 'cart.dart';
 
 class Detail extends StatefulWidget {
-
   final User user;
 
   DocumentSnapshot detailProduct;
-  Detail({this.detailProduct, this.user,});
+  Detail({
+    this.detailProduct,
+    this.user,
+  });
 
   @override
   _DetailState createState() => _DetailState();
 }
 
 class _DetailState extends State<Detail> {
-  
   @override
   Widget build(BuildContext context) {
-
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference CartUser = firestore.collection("cart_user"); 
+    CollectionReference CartUser = firestore.collection("cart_user");
 
     Future<void> addCart() {
       return CartUser.add({
         'user_id': widget.user.uid,
         'product_name': widget.detailProduct["product_name"],
         'price': widget.detailProduct["price"],
-      });
+      }).whenComplete(() => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return Cart(user: widget.user,);
+              },
+            ),
+          ));
     }
-   
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(241, 224, 212, 1),
       appBar: AppBar(
@@ -65,7 +72,9 @@ class _DetailState extends State<Detail> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return Cart(user: widget.user,);
+                    return Cart(
+                      user: widget.user,
+                    );
                   },
                 ),
               );

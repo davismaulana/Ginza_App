@@ -1,10 +1,14 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CardItem extends StatefulWidget {
   final String productName;
   final int price;
+  DocumentSnapshot docToDelete;
 
-  const CardItem({Key key, this.productName, this.price}) : super(key: key);
+  CardItem({Key key, this.productName, this.price, this.docToDelete}) : super(key: key);
 
   @override
   _CardItemState createState() => _CardItemState();
@@ -15,7 +19,8 @@ class _CardItemState extends State<CardItem> {
   double get subtotal => (widget.price ?? 0.0) * (count ?? 1);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+    
     return Container(
       width: 400,
       margin: EdgeInsets.only(bottom: 20),
@@ -28,13 +33,38 @@ class _CardItemState extends State<CardItem> {
         children: [
           // Coffee name
 
-          Container(
-            alignment: Alignment.topLeft,
-            child: Text(
-              widget.productName,
-              style: TextStyle(
-                  fontFamily: "Economica", color: Colors.white, fontSize: 30),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  widget.productName,
+                  style: TextStyle(
+                      fontFamily: "Economica", color: Colors.white, fontSize: 30),
+                ),
+              ),
+
+              GestureDetector(
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+                onTap: (){
+                  widget.docToDelete.reference.delete();
+                },
+              )
+              
+            ],
           ),
 
           SizedBox(

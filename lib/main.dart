@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.brown
               ),
               debugShowCheckedModeBanner: false,
-              home: Wrapper(),
+              home: FirstScreen(),
             ),
           );
         }else{

@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ginza_coffee_app/screens/cashier/cashier.dart';
 import 'package:ginza_coffee_app/screens/user/homescreen.dart';
 
 class OrderSuccess extends StatefulWidget {
-  const OrderSuccess({Key key}) : super(key: key);
+
+  final User user;
+
+  const OrderSuccess({Key key, this.user}) : super(key: key);
 
   @override
   _OrderSuccessState createState() => _OrderSuccessState();
@@ -63,7 +67,7 @@ class _OrderSuccessState extends State<OrderSuccess> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return HomeScreen();
+                          return HomeScreen(user: widget.user,);
                         },
                       ),
                     );
