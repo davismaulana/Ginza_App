@@ -90,7 +90,10 @@ class _DetailState extends State<Detail> {
               children: [
                 Container(
                   width: 250,
-                  child: Image.asset("assets/images/rabusta.png"),
+                  child: Image(
+                    image: NetworkImage(widget.detailProduct["image"]),
+                    fit: BoxFit.cover, 
+                  )
                 ),
                 SizedBox(
                   height: 30,
@@ -181,7 +184,7 @@ class _DetailState extends State<Detail> {
                       Container(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          "This coffee has a more bitter taste than other coffees. The coffee beans used in making this coffee contain 68,6 - 81,9 caffeine in 1 kg of dry coffee.",
+                          widget.detailProduct["description"],
                           style: TextStyle(
                               fontFamily: "Economica",
                               color: Color.fromRGBO(178, 124, 85, 1),

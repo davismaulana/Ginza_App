@@ -20,6 +20,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  String imgPath;
+
   @override
   Widget build(BuildContext context) {
 
@@ -109,7 +111,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: [
                         Container(
-                          child: Image.asset("assets/images/rabusta.png"),
+                          child: Image(
+                            image: NetworkImage(snapshot.data.docs[index]["image"]),
+                            fit: BoxFit.cover,
+                          )
                         ),
                         Container(
                           alignment: Alignment.topLeft,
