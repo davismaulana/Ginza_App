@@ -5,6 +5,7 @@ import 'package:ginza_coffee_app/screens/cashier/widgets/order.dart';
 import 'package:ginza_coffee_app/screens/login.dart';
 import 'package:ginza_coffee_app/screens/user/ordersuccess.dart';
 import 'package:ginza_coffee_app/screens/user/widget/cart_item.dart';
+import 'package:ginza_coffee_app/screens/user/widget/products.dart';
 
 class Cart extends StatefulWidget {
   final User user;

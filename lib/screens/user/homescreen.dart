@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ginza_coffee_app/models/product_model.dart';
 import 'package:ginza_coffee_app/screens/user/detailscreen.dart';
+import 'package:ginza_coffee_app/screens/user/widget/products.dart';
 import 'package:ginza_coffee_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
 import 'cart.dart';
@@ -88,71 +90,71 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
-        child: StreamBuilder(
-          stream: products.snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-                childAspectRatio: widthScreen / heightScreen,
-              ),
-              itemCount: snapshot.hasData?snapshot.data.docs.length:0, 
-              itemBuilder: (_,index){
-                return GestureDetector(
-                  child: Container(
-                    padding:
-                        EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(27, 27, 27, 1),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Image(
-                            image: NetworkImage(snapshot.data.docs[index]["image"]),
-                            fit: BoxFit.cover,
-                          )
-                        ),
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "${snapshot.data.docs[index]['product_name']}",
-                            style: TextStyle(
-                                fontFamily: "Economica",
-                                color: Colors.white,
-                                fontSize: 20,
+          child: ProductsWidget()
+        // StreamBuilder(
+        //   stream: products.snapshots(),
+        //   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+        //     return GridView.builder(
+        //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //         crossAxisCount: 2,
+        //         crossAxisSpacing: 20,
+        //         mainAxisSpacing: 20,
+        //         childAspectRatio: widthScreen / heightScreen,
+        //       ),
+        //       itemCount: snapshot.hasData?snapshot.data.docs.length:0, 
+        //       itemBuilder: (_,index){
+        //         return GestureDetector(
+        //           child: Container(
+        //             padding:
+        //                 EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
+        //             decoration: BoxDecoration(
+        //                 color: Color.fromRGBO(27, 27, 27, 1),
+        //                 borderRadius: BorderRadius.all(Radius.circular(20))),
+        //             child: Column(
+        //               children: [
+        //                 Container(
+        //                   child: Image(
+        //                     image: NetworkImage(snapshot.data.docs[index]["image"]),
+        //                     fit: BoxFit.cover,
+        //                   )
+        //                 ),
+        //                 Container(
+        //                   alignment: Alignment.topLeft,
+        //                   child: Text(
+        //                     "${snapshot.data.docs[index]['product_name']}",
+        //                     style: TextStyle(
+        //                         fontFamily: "Economica",
+        //                         color: Colors.white,
+        //                         fontSize: 20,
                                 
-                              ),
-                          ),
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Rp. ${snapshot.data.docs[index]['price']}",
-                                style: TextStyle(
-                                  fontFamily: "Neuton",
-                                  color: Color.fromRGBO(178, 124, 85, 1),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=>Detail(detailProduct: snapshot.data.docs[index], user: widget.user,)));
-                  },
-                );
-              }
-            );
-          }
-        ),
+        //                       ),
+        //                   ),
+        //                 ),
+        //                 Container(
+        //                   child: Row(
+        //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //                     children: [
+        //                       Text(
+        //                         "Rp. ${snapshot.data.docs[index]['price']}",
+        //                         style: TextStyle(
+        //                           fontFamily: "Neuton",
+        //                           color: Color.fromRGBO(178, 124, 85, 1),
+        //                         ),
+        //                       ),
+        //                     ],
+        //                   ),
+        //                 )
+        //               ],
+        //             ),
+        //           ),
+        //           onTap: (){
+        //             Navigator.push(context, MaterialPageRoute(builder: (_)=>Detail(detailProduct: snapshot.data.docs[index], user: widget.user,)));
+        //           },
+        //         );
+        //       }
+        //     );
+        //   }
+        // ),
       ),
       
     );

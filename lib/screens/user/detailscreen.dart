@@ -3,13 +3,14 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ginza_coffee_app/models/product_model.dart';
 import 'package:ginza_coffee_app/screens/cashier/widgets/order.dart';
 import 'cart.dart';
 
 class Detail extends StatefulWidget {
   final User user;
 
-  DocumentSnapshot detailProduct;
+  final ProductModel detailProduct;
   Detail({
     this.detailProduct,
     this.user,
@@ -25,20 +26,20 @@ class _DetailState extends State<Detail> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference CartUser = firestore.collection("cart_user");
 
-    Future<void> addCart() {
-      return CartUser.add({
-        'user_id': widget.user.uid,
-        'product_name': widget.detailProduct["product_name"],
-        'price': widget.detailProduct["price"],
-      }).whenComplete(() => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return Cart(user: widget.user,);
-              },
-            ),
-          ));
-    }
+    // Future<void> addCart() {
+    //   return CartUser.add({
+    //     'user_id': widget.user.uid,
+    //     'product_name': widget.detailProduct["product_name"],
+    //     'price': widget.detailProduct["price"],
+    //   }).whenComplete(() => Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) {
+    //             return Cart(user: widget.user,);
+    //           },
+    //         ),
+    //       ));
+    // }
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(241, 224, 212, 1),
@@ -91,7 +92,7 @@ class _DetailState extends State<Detail> {
                 Container(
                   width: 250,
                   child: Image(
-                    image: NetworkImage(widget.detailProduct["image"]),
+                    image: NetworkImage(widget.detailProduct.image),
                     fit: BoxFit.cover, 
                   )
                 ),
@@ -109,7 +110,7 @@ class _DetailState extends State<Detail> {
                       Container(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          widget.detailProduct["product_name"],
+                          widget.detailProduct.name,
                           style: TextStyle(
                               fontFamily: "Economica",
                               color: Colors.white,
@@ -119,7 +120,7 @@ class _DetailState extends State<Detail> {
                       Container(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          "Rp. ${widget.detailProduct['price']}",
+                          "Rp. ${widget.detailProduct.price}",
                           style: TextStyle(
                               fontFamily: "Neuton",
                               color: Color.fromRGBO(178, 124, 85, 1),
@@ -138,7 +139,7 @@ class _DetailState extends State<Detail> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10))),
                             onPressed: () {
-                              addCart();
+                              
                             },
                             child: Container(
                               margin: EdgeInsets.only(
@@ -184,7 +185,7 @@ class _DetailState extends State<Detail> {
                       Container(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          widget.detailProduct["description"],
+                          widget.detailProduct.desc,
                           style: TextStyle(
                               fontFamily: "Economica",
                               color: Color.fromRGBO(178, 124, 85, 1),

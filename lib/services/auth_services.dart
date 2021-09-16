@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ginza_coffee_app/constans/firebase.dart';
 
 class AuthServices with ChangeNotifier{
   bool _isLoading = false;
@@ -15,6 +16,7 @@ class AuthServices with ChangeNotifier{
     try {
       final authResult = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       User user = authResult.user;
+       _addUserToFirestore(user.uid,user.email);
       setLoading(false);
       return user;
     } on SocketException{
@@ -50,6 +52,8 @@ class AuthServices with ChangeNotifier{
     notifyListeners();
   }
 
+  
+
   Future logout() async {
     await firebaseAuth.signOut();
   }
@@ -57,6 +61,14 @@ class AuthServices with ChangeNotifier{
   void setLoading(val){
     _isLoading = val;
     notifyListeners();
+  }
+
+  _addUserToFirestore(String userId, email){
+    firebaseFirestore.collection("users").doc(userId).set({
+      "id": userId,
+      "email": email,
+      "cart": []
+    });
   }
 
   void setMessage(message){
